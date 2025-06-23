@@ -31,7 +31,7 @@ This will also enable React's [Strict Mode](https://react.dev/reference/react/St
 
 Run `npm run build` within the application's directory to compile the application into a `dist` directory. This directory can then be referenced as a static website by Odin Control.
 
-> :warning: **Warning:** if using Typescript, the build will fail if you have any unused variables or imports. This behaviour can be removed by editing `tsconfig.app.json` and `tsconfig.node.json`, but it is recommended.
+> :warning: **Warning:** if using Typescript, the build will fail if you have any unused variables or imports. This behaviour can be removed by editing `tsconfig.app.json` and `tsconfig.node.json`, but it is recommended to keep these linting options active to help catch errors.
 
 ## Further Information
 Please see the [Odin React Wiki](https://github.com/stfc-aeg/odin-react/wiki) for additional information about how to use the components.
