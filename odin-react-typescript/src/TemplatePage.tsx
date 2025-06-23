@@ -12,7 +12,7 @@ export const TemplatePage: React.FC = () => {
         <Row>
         <Col>
             <TitleCard title="Demo">
-                Test Test Test
+                Feel free to delete this Titlecard if required.
             </TitleCard>
         </Col>
         </Row>
