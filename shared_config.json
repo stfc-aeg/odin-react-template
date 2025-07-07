@@ -1,0 +1,16 @@
+{
+    "project_name": "Project Name",
+    "package_name": "{{cookiecutter.project_name|lower|replace(' ', '')|replace('-', '')}}",
+    "adapter_name": "{{cookiecutter.package_name}}",
+    "project_slug": "app",
+    "endpoint_url": "http://localhost:8889",
+    "include_plotly": false,
+    "__prompts__": {
+        "project_name": "Set the name of the project",
+        "package_name": "Set the name of the package",
+        "adapter_name": "Name of the adapter that the default template will connect to",
+        "project_slug": "Name the main folder the application will be in",
+        "endpoint_url": "The default endpoint of the Odin Control instance",
+        "include_plotly": "Include the optional Plotly package for graphing"
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "templates": {
+        "javascript": {
+            "path": "./javascript-template",
+            "title": "Javascript Template",
+            "description": "The template for a Javascript based Odin React App, without the support of Typescript"
+        },
+        "typescript": {
+            "path": "./typescript-template",
+            "title": "Typescript Template",
+            "description": "The template for a Typescript based Odin React App, which includes type checking for development."
+        }
+    },
+    "test": "Root Folder Config Option"
+}
