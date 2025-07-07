@@ -11,7 +11,7 @@ export const TemplatePage = () => {
         <Container>
         <Row>
         <Col>
-            <TitleCard title="Demo">
+            <TitleCard title="Demo {{cookiecutter.project_name}} Card">
                 Feel free to delete this Titlecard if required.
             </TitleCard>
         </Col>
