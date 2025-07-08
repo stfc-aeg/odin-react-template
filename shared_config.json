@@ -1,7 +1,7 @@
 {
     "project_name": "Project Name",
     "package_name": "{{cookiecutter.project_name|lower|replace(' ', '')|replace('-', '')}}",
-    "adapter_name": "{{cookiecutter.package_name}}",
+    "adapter_name": "{{cookiecutter.package_name}}Adapter",
     "project_slug": "app",
     "endpoint_url": "http://localhost:8889",
     "include_plotly": false,
