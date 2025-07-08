@@ -2,24 +2,38 @@
 
 These templates are designed to be the minimum recommended boilerplate for creating an Odin React App for your Odin Control project.
 
-## Recommended Usage
+## How to Use
 
-1. Create a new repo from this one for your GUI, by clicking the `Use This Template` button above.
+The templates utilize [CookieCutter](https://www.cookiecutter.io/) for templating, which is a python package. Ensure you're running a **Python 3 Virtual Environment** with CookieCutter installed:
 
-2. Delete the directory containing the template you do not wish to use. Using Typescript is recommended. Rename the remaining directory to whatever you wish your application to be named
+```bash
+pip install cookiecutter
+```
 
-3. `cd` into the directory and run `npm install` to install the dependencies. This step may take some time, and will create the `node_modules` directory.
-> :memo: **Note:** This does not install the `plotly.js` packages required to use `OdinGraph`. Should you require the graphing component, please install this package yourself:
->
->```bash
->npm install react-plotly.js plotly.js
->```
+Then, use cookiecutter to copy the template of your choice into your project. Standard practice is for the GUI to be copied into the `/test/static` directory of an Odin Control project.
 
-4. Create your GUI!
+```bash
+cd <project_root>/test/static
+cookiecutter git+ssh://git@github.com/stfc-aeg/odin-react-template
+```
 
-## Alternate Usage
+Cookiecutter provides configuration parameters when creating a new project based on a template. The following are the parameters provided by these template:
 
-If you do not want to have your GUI as a separate repo, but instead maintain it within the repo of your Detector Control project, it is recommended that you clone this repo somewhere local, and copy the template you wish to use into the `test/static` path in your Odin Control Repo. You can then follow on from step **2** above.
+| Name | Description | Default Value |
+| ---- | ----------- | ------------- |
+| project_name | The name of the project. | `Project Name` |
+| package_name | The name of the react package that will be created. | `projectname` |
+| adapter_name | The name of the adapter the GUI will connect to. This creates a default `AdapterEndpoint`, but this can be modified | `projectnameAdapter` |
+| project_slug | The name of the Directory that the React app will be created in | `app` |
+| endpoint_url | The URL that the Odin Control API will be available on. | `http://localhost:8889` |
+| include_plotly | A boolean telling Cookiecutter if it should include the plotly libraries in the dependencies | `false` |
+
+Once the template has created your local project, be sure to install the dependencies before trying to run it:
+
+```bash
+cd <project_slug>
+npm install # this step may take a minute or two to install all the dependencies
+```
 
 ## Testing your App
 
