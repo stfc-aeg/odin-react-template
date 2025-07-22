@@ -11,11 +11,11 @@
   },
   "dependencies": {
     "odin-react": "github:stfc-aeg/odin-react",
+    {% if cookiecutter.include_plotly %}
+    "react-plotly.js": "^2.6.0",
+    {% endif %}
     "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-{% if cookiecutter.include_plotly %}
-    "react-plotly.js": "^2.6.0"
-{% endif %}
+    "react-dom": "^19.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",
