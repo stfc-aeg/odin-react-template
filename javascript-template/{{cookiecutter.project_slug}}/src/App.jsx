@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { OdinApp, useAdapterEndpoint } from 'odin-react';
 import { TemplatePage } from './TemplatePage';
 
-function App() {
+const App = () => {
 
   const endpoint = useAdapterEndpoint("{{cookiecutter.adapter_name}}", import.meta.env.VITE_ENDPOINT_URL);
 
