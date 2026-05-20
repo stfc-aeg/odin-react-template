@@ -1,0 +1,25 @@
+{
+  "name": "@dssg/create-odin-react",
+  "version": "1.0.0",
+  "type": "module",
+  "bin": {
+    "create-odin-react": "./index.js"
+  },
+  "exports": {
+    ".": "./index.js",
+    "./utils/*": "./utils/*.js"
+  },
+  "keywords": ["template"],
+  "author": {
+    "name": "Ashley Neaves",
+    "email": "asley.neaves@stfc.ac.uk"
+  },
+  "license": "Apache-2.0",
+  "description": "Template project for Odin React projects",
+  "dependencies": {
+    "@clack/prompts": "^1.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.0"
+  }
+}
