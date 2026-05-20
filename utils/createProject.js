@@ -65,10 +65,12 @@ const updateAdapterConnection = async (projectPath, projectName, targetAdapter, 
 
     if (stat.isFile()) {
         const appContents = await fs.readFile(appPath, "utf8");
-        const updatedContents = appContents.replace(
-            /useAdapterEndpoint\("[a-zA-Z]+"/,
-            `useAdapterEndpoint("${targetAdapter}"`)
-            .replace(/title="[a-zA-Z]+"/, `title="${projectName}"`);
+        const updatedContents = appContents
+            .replace(
+                /(?<=useAdapterEndpoint<[a-zA-Z]+>\()("[a-zA-Z]+")/,
+                `"${targetAdapter}"`,
+            )
+            .replace(/(?<=title=)("[a-zA-Z]+")/, `"${projectName}"`);
         await fs.writeFile(appPath, updatedContents);
     }
 
