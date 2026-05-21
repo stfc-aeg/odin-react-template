@@ -5,11 +5,15 @@
   "bin": {
     "create-odin-react": "./index.js"
   },
-  "exports": {
-    ".": "./index.js",
-    "./utils/*": "./utils/*.js"
+  "scripts": {
+    "dev": "tsdown --watch",
+    "build": "tsdown"
   },
-  "keywords": ["template"],
+  "files": [
+    "index.js",
+    "template/*",
+    "dist"
+  ],
   "author": {
     "name": "Ashley Neaves",
     "email": "asley.neaves@stfc.ac.uk"
@@ -20,6 +24,7 @@
     "@clack/prompts": "^1.4.0"
   },
   "devDependencies": {
-    "@types/node": "^25.9.0"
+    "@types/node": "^25.9.1",
+    "tsdown": "^0.21.10"
   }
 }

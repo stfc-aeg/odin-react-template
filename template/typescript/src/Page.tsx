@@ -1,4 +1,4 @@
-import { TitleCard } from "@dssg/odin-react";
+import { TitleCard, ParamController } from "@dssg/odin-react";
 import type { AdapterEndpoint } from "@dssg/odin-react";
 import { Container, Row, Col } from 'react-bootstrap';
 import { type EndpointParams } from "./App";
@@ -17,21 +17,18 @@ const Page = ({
                 <Col>
                     <TitleCard title="Demo">
                         A Basic page using Bootstrap's Row/Col grid layout.
+                        Use this as a starting point for your GUI.
                         <br />
-                        Modify or even delete this page if required.
+                        Below is an auto-generated set of controls for your
+                        adapter to test and confirm the connection is working.
+                        This should not be used in the final GUI and is for debug
+                        purposes only
                     </TitleCard>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <TitleCard title="Endpoint Data">
-                        Full Data from the Adapter as a JSON object:
-                        <pre style={{ border: "1px solid black" }}>
-                            <code>
-                                {JSON.stringify(endpoint.data, undefined, 2)}
-                            </code>
-                        </pre>
-                    </TitleCard>
+                    <ParamController endpoint={endpoint} title="Adapter"/>
                 </Col>
             </Row>
         </Container>
