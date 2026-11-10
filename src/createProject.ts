@@ -11,6 +11,7 @@ interface InitConfig {
     targetAdapter: string;
     url: string;
     includePlotly: boolean;
+    includeWorkflow: boolean;
     immediate: boolean;
 }
 
@@ -123,6 +124,63 @@ const updateAdapterConnection = async (
     ]);
 };
 
+const findWorkflowDest = async (curDir: string) => {
+    // Finding the github workflow directory, relative to the current working directory
+    if (curDir == "/") {
+        prompts.log.error("Hit Root Dir of system. Are you installing Odin React into a Git Repo?");
+        return null;
+    }
+    prompts.log.step(`Looking for Github Workflow Directory in ${curDir}`);
+
+    try {
+        // find the git repo root Directory
+        const gitDir = path.join(curDir, ".git");
+
+        if (existsSync(gitDir)) {
+            const workflowPath = path.join(curDir, ".github", "workflows");
+            await fs.mkdir(workflowPath, { recursive: true });
+            prompts.log.step(`Found Github Workflow Dir: ${workflowPath}`);
+
+            return workflowPath;
+        }
+        // Not at this level, go up to parent
+        return findWorkflowDest(path.join(curDir, ".."));
+    } catch (err) {
+        prompts.log.error("Could not find Github Workflow Directory!");
+        return null;
+    }
+};
+
+const updateWorkflow = async (
+    projectPath: string,
+    workflowDir: string,
+    workflowName: string,
+    includeWorkflow: boolean,
+) => {
+    const srcDir = path.join(projectPath, "workflows");
+    const workflowSrc = path.join(srcDir, workflowName);
+
+    if (includeWorkflow) {
+        prompts.log.step("Moving Github Workflow...");
+        const relativeProjectPath = path.relative(path.join(workflowDir, "..", ".."), projectPath);
+        await changeFileContents(
+            workflowSrc,
+            [/(?<=working_directory:\s)([a-zA-Z\/]+)/, /(?<=working-directory:\s)([a-zA-Z\/]+)/],
+            relativeProjectPath,
+        );
+        const workflowDst = path.join(workflowDir, workflowName);
+        await fs.copyFile(workflowSrc, workflowDst);
+
+        await fs.rm(workflowSrc);
+        if (await isEmpty(srcDir)) {
+            await fs.rmdir(srcDir);
+        }
+    } else {
+        prompts.log.step("Deleting unused Github Workflow...");
+        await fs.rm(srcDir, { recursive: true });
+    }
+};
+
 const installPackage = (projectDir: string) => {
     prompts.log.step("Installing Dependencies with NPM...");
     const { status, error } = spawnSync("npm", ["install"], { cwd: projectDir, stdio: "inherit" });
@@ -196,6 +254,7 @@ const init = async ({
     targetAdapter,
     url,
     includePlotly,
+    includeWorkflow,
     immediate,
 }: InitConfig) => {
     prompts.log.step("Initialising...");
@@ -216,6 +275,23 @@ const init = async ({
 
         await updatePackage(destination, projectName, includePlotly);
         await updateAdapterConnection(destination, projectName, targetAdapter, url);
+
+        let workflowDest = null;
+        if (includeWorkflow) {
+            workflowDest = await findWorkflowDest(destination);
+        } else {
+            workflowDest = "UNUSED";
+        }
+        if (workflowDest) {
+            await updateWorkflow(
+                destination,
+                workflowDest,
+                "publish_static_UI.yml",
+                includeWorkflow,
+            );
+        }
+
+        
 
         if (immediate) {
             installPackage(destination);
